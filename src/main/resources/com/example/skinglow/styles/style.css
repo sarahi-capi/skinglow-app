@@ -54,3 +54,40 @@
     -fx-text-fill: #FCFAF2;
     -fx-cursor: hand;
 }
+
+/* Filter buttons */
+.filterButton {
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
+    -fx-text-fill: #A8D1E7;
+}
+
+.specialFilterButton {
+    -fx-cursor: hand;
+}
+
+/* Buttons Scroll Pane */
+.buttonsScrollPane {
+    -fx-background-color: transparent; /* Remove background */
+    -fx-padding: 0;
+}
+
+.buttonsScrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
+.buttonsScrollPane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 0 0;
+    -fx-pref-width: 8px;
+}
+
+.buttonsScrollPane .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.buttonsScrollPane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #A8D1E7;
+    -fx-background-insets: 2;
+    -fx-background-radius: 5;
+}

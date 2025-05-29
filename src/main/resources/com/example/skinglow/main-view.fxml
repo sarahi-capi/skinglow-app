@@ -16,7 +16,7 @@
     <VBox alignment="CENTER" spacing="10.0">
         <VBox alignment="TOP_CENTER" spacing="10">
             <Label text="SkinGlow" styleClass="logoLabel" translateY="-40"/>
-            <ImageView fx:id="imageLogo" fitWidth="210" preserveRatio="true" />
+            <ImageView fx:id="imageLogo" fitWidth="210" preserveRatio="true"/>
             <Label text="One step closer to have the perfect skin!"
                    translateY="20"
                    wrapText="true"
