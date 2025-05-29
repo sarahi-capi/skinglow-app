@@ -1,0 +1,56 @@
+/* Importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Settings for the root */
+.root {
+    -fx-font-family: 'Sour Gummy';
+}
+
+/* Specific font for the logo */
+.logoLabel {
+    -fx-font-family: 'Delius Swash Caps';
+    -fx-font-size: 55px;
+    -fx-text-fill: #FCFAF2;
+}
+
+.logoLabelSmall {
+    -fx-font-family: 'Delius Swash Caps';
+    -fx-font-size: 35px;
+    -fx-text-fill: black;
+}
+
+/* Get Started Button */
+.getStartedButton {
+    -fx-font-size: 16px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 50;
+    -fx-background-color: #FFBFC5;
+    -fx-text-fill: #FCFAF2;
+    -fx-cursor: hand;
+}
+
+.getStartedButton:hover {
+    -fx-background-color: #FCFAF2;
+    -fx-text-fill: #FFBFC5;
+}
+
+/* Text Field Style */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #EB8DB5;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #999999;
+}
+
+.searchButton {
+    -fx-font-size: 16px;
+    -fx-padding: 5 20 5 20;
+    -fx-background-radius: 50;
+    -fx-background-color: #EB8DB5;
+    -fx-text-fill: #FCFAF2;
+    -fx-cursor: hand;
+}

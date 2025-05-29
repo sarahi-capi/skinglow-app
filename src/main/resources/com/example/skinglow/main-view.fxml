@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.skinglow.MainSceneController"
+           stylesheets="@styles/style.css"
+           prefWidth="375"
+           prefHeight="667">
+    <ImageView fx:id="mainScreenBackground"
+               preserveRatio="true"/>
+    <VBox alignment="CENTER" spacing="10.0">
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <Label text="SkinGlow" styleClass="logoLabel" translateY="-40"/>
+            <ImageView fx:id="imageLogo" fitWidth="210" preserveRatio="true" />
+            <Label text="One step closer to have the perfect skin!"
+                   translateY="20"
+                   wrapText="true"
+                   textAlignment="CENTER"
+                   maxWidth="280"
+                   style="-fx-font-size: 25px; -fx-text-fill: #FCFAF2;"/>
+            <VBox alignment="CENTER" translateY="80" spacing="10">
+                <Button text="Get started"
+                        onAction="#fadeWindow"
+                        wrapText="true"
+                        styleClass="getStartedButton"/>
+                <Label text="Knowing which products are suitable for your skin couldn't be more easier!"
+                       wrapText="true"
+                       textAlignment="CENTER"
+                       maxWidth="280"
+                       style="-fx-font-size: 15px;"/>
+            </VBox>
+        </VBox>
+    </VBox>
+</StackPane>

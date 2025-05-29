@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.skinglow.CatalogController"
+           stylesheets="@styles/style.css"
+           prefHeight="400.0"
+           prefWidth="600.0"
+           style="-fx-background-color: #FCFAF2;">
+    <VBox alignment="CENTER">
+        <Label text="SkinGlow"
+               styleClass="logoLabelSmall"
+               translateY="-40"/>
+        <HBox spacing="10" alignment="CENTER">
+            <TextField fx:id="searchField" promptText="Search for anything" />
+            <Button text="🔍"
+                    styleClass="searchButton"
+                    onAction="#onSearch"/>
+        </HBox>
+    </VBox>
+</StackPane>
