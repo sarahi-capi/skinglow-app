@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainSceneController {
     @FXML private ImageView imageLogo;
@@ -20,10 +21,8 @@ public class MainSceneController {
 
     @FXML
     public void initialize() {
-        if (imageLogo != null && mainScreenBackground != null) {
-            imageLogo.setImage(new Image(getClass().getResourceAsStream("/images/SkinCareLogo.png")));
-            mainScreenBackground.setImage(new Image(getClass().getResourceAsStream("/images/MainScreenBackground.png")));
-        }
+        imageLogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/SkinCareLogo.png"))));
+        mainScreenBackground.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MainScreenBackground.png"))));
     }
 
     // Changing windows with a fading animation

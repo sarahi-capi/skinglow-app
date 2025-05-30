@@ -11,8 +11,8 @@ import java.io.IOException;
 public class SkinGlowApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(SkinGlowApplication.class.getResource("main-view.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(SkinGlowApplication.class.getResource("catalog-scene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SkinGlowApplication.class.getResource("main-view.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(SkinGlowApplication.class.getResource("catalog-scene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 375, 667);
 
         // Setting the Logo.
