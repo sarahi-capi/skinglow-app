@@ -22,7 +22,7 @@
         </HBox>
         <HBox spacing="10" alignment="CENTER">
             <TextField fx:id="searchField"
-                       promptText="Search for anything" />
+                       promptText="Search a product" />
             <Button fx:id="searchButton"
                     text="🔍"
                     styleClass="searchButton"
@@ -32,12 +32,26 @@
             <ScrollPane maxWidth="320"
                         fitToHeight="true"
                         vbarPolicy="NEVER"
-                        prefHeight="115"
+                        prefHeight="125"
                         styleClass="simpleScrollPane">
                 <HBox spacing="10" maxHeight="Infinity">
+                    <VBox fx:id="all"
+                          alignment="CENTER"
+                          spacing="15"
+                          onMouseClicked="#filterAll"
+                          style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
+                        <ImageView fx:id="allIcon"
+                                   fitWidth="40"
+                                   preserveRatio="true"/>
+                        <Button text="All"
+                                styleClass="filterButton"
+                                maxWidth="180"
+                                wrapText="true"/>
+                    </VBox>
                     <VBox fx:id="brand"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterBrand"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="brandIcon"
                                    fitWidth="40"
@@ -47,14 +61,54 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox fx:id="skinConcern"
+                    <VBox fx:id="oilySkin"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterOilySkin"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
-                        <ImageView fx:id="skinConcernIcon"
+                        <ImageView fx:id="oilyIcon"
                                    fitWidth="40"
                                    preserveRatio="true"/>
-                        <Button text="Skin Concern"
+                        <Button text="Oily Skin"
+                                styleClass="filterButton"
+                                maxWidth="180"
+                                wrapText="true"/>
+                    </VBox>
+                    <VBox fx:id="sensitiveSkin"
+                          alignment="CENTER"
+                          spacing="15"
+                          onMouseClicked="#filterSensitiveSkin"
+                          style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
+                        <ImageView fx:id="sensitiveIcon"
+                                   fitWidth="40"
+                                   preserveRatio="true"/>
+                        <Button text="Sensitive Skin"
+                                styleClass="filterButton"
+                                maxWidth="180"
+                                wrapText="true"/>
+                    </VBox>
+                    <VBox fx:id="drySkin"
+                          alignment="CENTER"
+                          spacing="15"
+                          onMouseClicked="#filterDrySkin"
+                          style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
+                        <ImageView fx:id="dryIcon"
+                                   fitWidth="40"
+                                   preserveRatio="true"/>
+                        <Button text="Dry Skin"
+                                styleClass="filterButton"
+                                maxWidth="180"
+                                wrapText="true"/>
+                    </VBox>
+                    <VBox fx:id="normalSkin"
+                          alignment="CENTER"
+                          spacing="15"
+                          onMouseClicked="#filterNormalSkin"
+                          style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
+                        <ImageView fx:id="normalIcon"
+                                   fitWidth="40"
+                                   preserveRatio="true"/>
+                        <Button text="Normal Skin"
                                 styleClass="filterButton"
                                 maxWidth="180"
                                 wrapText="true"/>
@@ -62,6 +116,7 @@
                     <VBox fx:id="cleanser"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterCleanser"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="cleanserIcon"
                                    fitWidth="40"
@@ -74,6 +129,7 @@
                     <VBox fx:id="toner"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterToner"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="tonerIcon"
                                    fitWidth="40"
@@ -86,6 +142,7 @@
                     <VBox fx:id="moisturizer"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterMoisturizer"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="moisturizerIcon"
                                    fitWidth="40"
@@ -98,6 +155,7 @@
                     <VBox fx:id="serum"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterSerum"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="serumIcon"
                                    fitWidth="40"
@@ -110,6 +168,7 @@
                     <VBox fx:id="sunscreen"
                           alignment="CENTER"
                           spacing="15"
+                          onMouseClicked="#filterSunscreen"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="sunscreenIcon"
                                    fitWidth="40"

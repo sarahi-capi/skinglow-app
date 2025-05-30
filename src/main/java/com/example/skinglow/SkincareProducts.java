@@ -1,5 +1,7 @@
 package com.example.skinglow;
 
+import java.util.Comparator;
+
 public abstract class SkincareProducts {
     private String name;
     private String brand;
@@ -29,6 +31,18 @@ public abstract class SkincareProducts {
 
     public String getSkinType() {
         return skinType;
+    }
+
+    public String getMainComponent() {
+        return mainComponent;
+    }
+
+    public String getPresentation() {
+        return presentation;
+    }
+
+    public String getProductType() {
+        return productType;
     }
 
     public String getImagePath() {
