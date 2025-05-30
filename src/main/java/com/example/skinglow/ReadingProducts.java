@@ -26,20 +26,20 @@ public class ReadingProducts {
                 }
 
                 String[] fields = line.split(",", -1); // Split by comma
-                if (fields.length == 6) { // If we have 6 columns (name, brand, skinType. mainComponent, presentation, productType)
+                if (fields.length == 7) { // If we have 6 columns (name, brand, skinType. mainComponent, presentation, productType, imagePath)
 
                     if (fields[5].equals("Cleanser")) {
                         switch (fields[4]) {
                             case "Green Tea" ->
-                                    skincareProductsList.add(new GreenTeaCleanser(fields[0], fields[1], fields[2], fields[4]));
+                                    skincareProductsList.add(new GreenTeaCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
                             case "Salicylic Acid" ->
-                                    skincareProductsList.add(new SalicylicAcidCleanser(fields[0], fields[1], fields[2], fields[4]));
+                                    skincareProductsList.add(new SalicylicAcidCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
                             case "Tea Tree" ->
-                                    skincareProductsList.add(new TeaTreeOilCleanser(fields[0], fields[1], fields[2], fields[4]));
+                                    skincareProductsList.add(new TeaTreeOilCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
                             case "Centella Asiatica" ->
-                                    skincareProductsList.add(new CentellaAsiaticaCleanser(fields[0], fields[1], fields[2], fields[4]));
+                                    skincareProductsList.add(new CentellaAsiaticaCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
                             default ->
-                                    skincareProductsList.add(new RiceWaterCleanser(fields[0], fields[1], fields[2], fields[4]));
+                                    skincareProductsList.add(new RiceWaterCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
                         }
                     }
 

@@ -4,11 +4,14 @@ import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -19,10 +22,20 @@ public class MainSceneController {
     @FXML private ImageView imageLogo;
     @FXML private ImageView mainScreenBackground;
 
+    @FXML private Button getStartedButton;
+    @FXML private StackPane mainView;
+
     @FXML
     public void initialize() {
         imageLogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/SkinCareLogo.png"))));
         mainScreenBackground.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MainScreenBackground.png"))));
+
+        // Changing cursor and hand image
+        Image cursorImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MousePointer.png")));
+        mainView.setCursor(new ImageCursor(cursorImage));
+
+        Image handImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MouseHand.png")));
+        getStartedButton.setCursor(new ImageCursor(handImage));
     }
 
     // Changing windows with a fading animation

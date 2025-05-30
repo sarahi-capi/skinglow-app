@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
-<StackPane xmlns="http://javafx.com/javafx"
+<StackPane fx:id="catalogView"
+           xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.skinglow.CatalogController"
            stylesheets="@styles/style.css"
@@ -22,7 +23,8 @@
         <HBox spacing="10" alignment="CENTER">
             <TextField fx:id="searchField"
                        promptText="Search for anything" />
-            <Button text="🔍"
+            <Button fx:id="searchButton"
+                    text="🔍"
                     styleClass="searchButton"
                     onAction="#onSearch"/>
         </HBox>
@@ -31,11 +33,11 @@
                         fitToHeight="true"
                         vbarPolicy="NEVER"
                         prefHeight="115"
-                        styleClass="buttonsScrollPane">
+                        styleClass="simpleScrollPane">
                 <HBox spacing="10" maxHeight="Infinity">
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="brand"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="brandIcon"
                                    fitWidth="40"
@@ -45,9 +47,9 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="skinConcern"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="skinConcernIcon"
                                    fitWidth="40"
@@ -57,9 +59,9 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="cleanser"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="cleanserIcon"
                                    fitWidth="40"
@@ -69,9 +71,9 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="toner"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="tonerIcon"
                                    fitWidth="40"
@@ -81,9 +83,9 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="moisturizer"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="moisturizerIcon"
                                    fitWidth="40"
@@ -93,9 +95,9 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="serum"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="serumIcon"
                                    fitWidth="40"
@@ -105,9 +107,9 @@
                                 maxWidth="180"
                                 wrapText="true"/>
                     </VBox>
-                    <VBox alignment="CENTER"
+                    <VBox fx:id="sunscreen"
+                          alignment="CENTER"
                           spacing="15"
-                          styleClass="specialFilterButton"
                           style="-fx-background-color: #EBEBEB; -fx-background-radius: 25; -fx-padding: 10 15 10 15;">
                         <ImageView fx:id="sunscreenIcon"
                                    fitWidth="40"
@@ -120,8 +122,12 @@
                 </HBox>
             </ScrollPane>
         </HBox>
-        <HBox alignment="CENTER" spacing="20">
+        <ScrollPane maxWidth="320"
+                    maxHeight="320"
+                    fitToHeight="true"
+                    hbarPolicy="NEVER"
+                    styleClass="simpleScrollPane">
             <VBox fx:id="productDisplay" alignment="CENTER" spacing="20"/>
-        </HBox>
+        </ScrollPane>
     </VBox>
 </StackPane>
