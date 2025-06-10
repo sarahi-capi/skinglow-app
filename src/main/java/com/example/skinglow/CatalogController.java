@@ -1,25 +1,22 @@
 package com.example.skinglow;
 
-import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.ImageCursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,7 +38,7 @@ public class CatalogController {
     @FXML private ImageView sunscreenIcon;
 
     // VBox to add new display of products
-    @FXML private VBox productDisplay;
+    @FXML private VBox productDisplayVBox;
 
     // TextField used to take the query from the user
     @FXML private TextField searchField;
@@ -60,24 +57,61 @@ public class CatalogController {
     @FXML private VBox serum;
     @FXML private VBox sunscreen;
     @FXML private Button searchButton;
+    @FXML private Button tutorialButton;
+
+    // To manage the images
+    ImageManager imageManager = new ImageManager();
+
+    // To manage the fade in transition
+    Transition fadeIn = new Transition();
+
+    // To manage the product's display
+    ProductDisplayManager productDisplay = new ProductDisplayManager();
 
     // List with all the products
     private List<SkincareProducts> skincareProductsList;
 
     public void initialize() {
-        // Adding the images for the filter menu
-        addingImage(imageLogo,"/images/SkinCareLogo.png");
-        addingImage(allIcon,"/images/AllProducts.png");
-        addingImage(brandIcon,"/images/Brand.png");
-        addingImage(oilyIcon, "/images/OilySkin.png");
-        addingImage(sensitiveIcon, "/images/SensitiveSkin.png");
-        addingImage(dryIcon, "/images/DrySkin.png");
-        addingImage(normalIcon, "/images/NormalSkin.png");
-        addingImage(cleanserIcon, "/images/Cleanser.png");
-        addingImage(tonerIcon,"/images/Toner.png");
-        addingImage(moisturizerIcon,"/images/Moisturizer.png");
-        addingImage(serumIcon,"/images/Serum.png");
-        addingImage(sunscreenIcon,"/images/Sunscreen.png");
+
+        // Saving VBoxes in a list to change their cursor
+        List<VBox> cursorVBoxes = Arrays.asList(
+                all,
+                brand,
+                oilySkin,
+                sensitiveSkin,
+                drySkin,
+                normalSkin,
+                cleanser,
+                toner,
+                moisturizer,
+                serum,
+                sunscreen
+        );
+
+        // Saving Buttons in a list to change their cursor
+        List<Button> cursorButtons = Arrays.asList(
+                searchButton,
+                tutorialButton
+        );
+
+        // Saving ImageView objects and their paths into two arrays
+        ImageView[] imageViews = {imageLogo, allIcon, brandIcon, oilyIcon, sensitiveIcon, dryIcon, normalIcon, cleanserIcon, tonerIcon,
+                                  moisturizerIcon, serumIcon, sunscreenIcon};
+        String[] paths = {"/images/SkinCareLogo.png",
+                          "/images/AllProducts.png",
+                          "/images/Brand.png",
+                          "/images/OilySkin.png",
+                          "/images/SensitiveSkin.png",
+                          "/images/DrySkin.png",
+                          "/images/NormalSkin.png",
+                          "/images/Cleanser.png",
+                          "/images/Toner.png",
+                          "/images/Moisturizer.png",
+                          "/images/Serum.png",
+                          "/images/Sunscreen.png"};
+
+        // Adding the images to the ImageView
+        imageManager.addingImage(imageViews, paths);
 
         // Adding products to be displayed
         ReadingProducts readingProducts = new ReadingProducts();
@@ -85,30 +119,53 @@ public class CatalogController {
 
         // Sorting by name
         skincareProductsList.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-        for (SkincareProducts product : skincareProductsList) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+
+        // For each product in the list, create a product and add it to the VBox productDisplay
+        skincareProductsList.forEach(product ->
+                productDisplayVBox.getChildren().add(
+                        productDisplay.createProductDisplay(
+                                product.getName(),
+                                product.getBrand(),
+                                product.getSkinType(),
+                                product.getImagePath()
+                        )
+                )
+        );
 
         // Changing cursor and hand image
-        Image cursorImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MousePointer.png")));
-        catalogView.setCursor(new ImageCursor(cursorImage));
+        SettingCursor settingCursor = new SettingCursor();
 
-        Image handImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MouseHand.png")));
-        all.setCursor(new ImageCursor(handImage));
-        brand.setCursor(new ImageCursor(handImage));
-        oilySkin.setCursor(new ImageCursor(handImage));
-        sensitiveSkin.setCursor(new ImageCursor(handImage));
-        drySkin.setCursor(new ImageCursor(handImage));
-        normalSkin.setCursor(new ImageCursor(handImage));
-        cleanser.setCursor(new ImageCursor(handImage));
-        toner.setCursor(new ImageCursor(handImage));
-        moisturizer.setCursor(new ImageCursor(handImage));
-        serum.setCursor(new ImageCursor(handImage));
-        sunscreen.setCursor(new ImageCursor(handImage));
-        searchButton.setCursor(new ImageCursor(handImage));
+        settingCursor.pointerCursor(catalogView);
 
-        Image editorImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MouseEditor.png")));
-        searchField.setCursor(new ImageCursor(editorImage));
+        cursorVBoxes.forEach(settingCursor::handCursor);
+        cursorButtons.forEach(settingCursor::handCursor);
+
+        settingCursor.editorCursor(searchField);
+
+        // Changing text on hover for the tutorialButton
+        tutorialButton.setOnMouseEntered(event -> tutorialButton.setText("Skincare Steps"));
+        tutorialButton.setOnMouseExited(event -> tutorialButton.setText("?"));
+    }
+
+    // Method to display a window with explanation of the Skincare routine
+    @FXML
+    private void tutorialWindow(ActionEvent event) throws IOException {
+        // Loading the tutorial window
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("tutorial-scene.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene newScene = new Scene(root,375, 667 );
+
+        // Creating a new Stage and showing it
+        Stage newStage = new Stage();
+        newStage.setScene(newScene);
+        newStage.show();
+
+        // Fading in the new window
+        fadeIn.fadeInTransition(root);
+
+        // Setting the Logo
+        newStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/SkinCareLogo.png"))));
+
     }
 
     // Method to filter a search based on a query
@@ -117,14 +174,21 @@ public class CatalogController {
         String query = searchField.getText().toLowerCase();
 
         // Clear current display
-        productDisplay.getChildren().clear();
+        productDisplayVBox.getChildren().clear();
 
-        // Filter and add matching items
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getName().toLowerCase().contains(query)) {
-                productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-            }
-        }
+        // Filtering the products based on a query
+        skincareProductsList.stream()
+                // If the name in lower case contains the query
+                .filter(product -> product.getName().toLowerCase().contains(query))
+                // Then, add these products to the display
+                .forEach(product -> productDisplayVBox.getChildren().add(
+                        productDisplay.createProductDisplay(
+                                product.getName(),
+                                product.getBrand(),
+                                product.getSkinType(),
+                                product.getImagePath()
+                        )
+                ));
     }
 
     // Method to show all the products
@@ -133,12 +197,8 @@ public class CatalogController {
         // Sorting by name
         skincareProductsList.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
 
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : skincareProductsList) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(skincareProductsList, productDisplayVBox);
     }
 
     // Method to filter by Brand
@@ -147,104 +207,76 @@ public class CatalogController {
         // Sorting by Brand
         skincareProductsList.sort((product1, product2) -> product1.getBrand().compareTo(product2.getBrand()));
 
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : skincareProductsList) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(skincareProductsList, productDisplayVBox);
     }
 
     // Method to filter by Oily Skin
     @FXML
     private void filterOilySkin(MouseEvent event) {
         // Creating a List with products that are suitable for oily skin
-        List<SkincareProducts> oilySkinProducts = new ArrayList<>();
+        List<SkincareProducts> oilySkinProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getSkinType().equals("Oily Skin") ||
+                                                   product.getSkinType().equals("All Skin Types")).sorted((
+                                                           product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getSkinType().equals("Oily Skin") || product.getSkinType().equals("All Skin Types")) {
-                oilySkinProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        oilySkinProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : oilySkinProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(oilySkinProducts, productDisplayVBox);
     }
 
     // Method to filter by Sensitive Skin
     @FXML
     private void filterSensitiveSkin(MouseEvent event) {
         // Creating a List with products that are suitable for sensitive skin
-        List<SkincareProducts> sensitiveSkinProducts = new ArrayList<>();
+        List<SkincareProducts> sensitiveSkinProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getSkinType().equals("Sensitive Skin") ||
+                                                   product.getSkinType().equals("All Skin Types")).sorted((
+                        product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getSkinType().equals("Sensitive Skin") || product.getSkinType().equals("All Skin Types")) {
-                sensitiveSkinProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        sensitiveSkinProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : sensitiveSkinProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(sensitiveSkinProducts, productDisplayVBox);
     }
 
     // Method to filter by Sensitive Skin
     @FXML
     private void filterDrySkin(MouseEvent event) {
         // Creating a List with products that are suitable for dry skin
-        List<SkincareProducts> drySkinProducts = new ArrayList<>();
+        List<SkincareProducts> drySkinProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getSkinType().equals("Dry Skin") ||
+                                                   product.getSkinType().equals("All Skin Types")).sorted((
+                        product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getSkinType().equals("Dry Skin") || product.getSkinType().equals("All Skin Types")) {
-                drySkinProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        drySkinProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : drySkinProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(drySkinProducts, productDisplayVBox);
     }
 
-    // Method to filter by Sensitive Skin
+    // Method to filter by Normal Skin
     @FXML
     private void filterNormalSkin(MouseEvent event) {
         // Creating a List with products that are suitable for normal skin
-        List<SkincareProducts> normalSkinProducts = new ArrayList<>();
+        List<SkincareProducts> normalSkinProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getSkinType().equals("Normal Skin") ||
+                                                   product.getSkinType().equals("All Skin Types")).sorted((
+                        product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getSkinType().equals("Normal Skin") || product.getSkinType().equals("All Skin Types")) {
-                normalSkinProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        normalSkinProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : normalSkinProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(normalSkinProducts, productDisplayVBox);
     }
 
 
@@ -252,189 +284,80 @@ public class CatalogController {
     @FXML
     private void filterCleanser(MouseEvent event) {
         // Creating a List with products that are cleansers
-        List<SkincareProducts> cleanserProducts = new ArrayList<>();
+        List<SkincareProducts> cleanserProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getProductType().equals("Cleanser")).sorted(
+                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getProductType().equals("Cleanser")) {
-                cleanserProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        cleanserProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : cleanserProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(cleanserProducts, productDisplayVBox);
     }
 
     // Method to filter by Toner
     @FXML
     private void filterToner(MouseEvent event) {
         // Creating a List with products that are toners
-        List<SkincareProducts> tonerProducts = new ArrayList<>();
+        List<SkincareProducts> tonerProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getProductType().equals("Toner")).sorted(
+                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getProductType().equals("Toner")) {
-                tonerProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        tonerProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : tonerProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(tonerProducts, productDisplayVBox);
     }
 
     // Method to filter by Moisturizer
     @FXML
     private void filterMoisturizer(MouseEvent event) {
         // Creating a List with products that are moisturizers
-        List<SkincareProducts> moisturizerProducts = new ArrayList<>();
+        List<SkincareProducts> moisturizerProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getProductType().equals("Moisturizer")).sorted(
+                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getProductType().equals("Moisturizer")) {
-                moisturizerProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        moisturizerProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : moisturizerProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(moisturizerProducts, productDisplayVBox);
     }
 
     // Method to filter by Serum
     @FXML
     private void filterSerum(MouseEvent event) {
         // Creating a List with products that are serums
-        List<SkincareProducts> serumProducts = new ArrayList<>();
+        List<SkincareProducts> serumProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getProductType().equals("Serum")).sorted(
+                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getProductType().equals("Serum")) {
-                serumProducts.add(product);
-            }
-        }
-
-        // Sorting by name
-        serumProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : serumProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(serumProducts, productDisplayVBox);
     }
 
     // Method to filter by Sunscreen
     @FXML
     private void filterSunscreen(MouseEvent event) {
         // Creating a List with products that are sunscreens
-        List<SkincareProducts> sunscreenProducts = new ArrayList<>();
+        List<SkincareProducts> sunscreenProducts = skincareProductsList.stream()
+                // Filtering the products based on the SkinType and sorting them
+                .filter(product -> product.getProductType().equals("Sunscreen")).sorted(
+                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                )
+                // Adding them to the list
+                .toList();
 
-        for (SkincareProducts product : skincareProductsList) {
-            if (product.getProductType().equals("Sunscreen")) {
-                sunscreenProducts.add(product);
-            }
-        }
+        // Adding the products to the VBox
+        productDisplay.showProducts(sunscreenProducts, productDisplayVBox);
 
-        // Sorting by name
-        sunscreenProducts.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
-
-        // Cleaning the VBox productDisplay
-        productDisplay.getChildren().clear();
-
-        for (SkincareProducts product : sunscreenProducts) {
-            productDisplay.getChildren().add(createProductDisplay(product.getName(), product.getBrand(), product.getSkinType(), product.getImagePath()));
-        }
-    }
-
-    // Method to set an ImageView
-    private void addingImage(ImageView image, String path) {
-        image.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
-    }
-
-    // Method to animate an ImageView when hover
-    private void animateImage(ImageView image) {
-        // Scale up on hover
-        image.setOnMouseEntered(e -> {
-            ScaleTransition scale = new ScaleTransition(Duration.millis(300), image);
-            scale.setToX(1.1);
-            scale.setToY(1.1);
-
-            RotateTransition rotate = new RotateTransition(Duration.millis(300), image);
-            rotate.setByAngle(-15);
-
-            ParallelTransition parallel = new ParallelTransition(scale, rotate);
-            parallel.play();
-        });
-
-        // Scale back when mouse exits
-        image.setOnMouseExited(e -> {
-            ScaleTransition scale = new ScaleTransition(Duration.millis(300), image);
-            scale.setToX(1.0);
-            scale.setToY(1.0);
-
-            RotateTransition rotate = new RotateTransition(Duration.millis(300), image);
-            rotate.setToAngle(0);
-
-            ParallelTransition parallel = new ParallelTransition(scale, rotate);
-            parallel.play();
-        });
-    }
-
-    // Method to create a display of a product, where it adds an image and some informative text
-    private HBox createProductDisplay(String productName, String brand, String skinType, String imagePath) {
-
-        // Creating a HBox to display the products
-        HBox display = new HBox(10);
-        display.setPadding(new Insets(10));
-        display.setAlignment(Pos.CENTER);
-        Image handImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MouseHand.png")));
-        display.setCursor(new ImageCursor(handImage));
-
-        // Adding the image
-        ImageView productImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
-        productImage.setFitWidth(115);
-        productImage.setPreserveRatio(true);
-        animateImage(productImage);
-
-        // Creating a VBox to contain the product name, brand and skin type
-        VBox textBox = new VBox(5);
-        textBox.setAlignment(Pos.CENTER);
-
-        Label nameLabel = new Label(productName);
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
-        nameLabel.setWrapText(true);
-        nameLabel.setMaxWidth(160);
-
-        Label brandLabel = new Label(brand);
-        brandLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 12px;");
-        brandLabel.setWrapText(true);
-        brandLabel.setMaxWidth(160);
-
-        Label descriptionLabel = new Label(skinType);
-        descriptionLabel.setWrapText(true);
-        descriptionLabel.setMaxWidth(160);
-
-        // Adding the image and the description
-        textBox.getChildren().addAll(nameLabel, brandLabel, descriptionLabel);
-        display.getChildren().addAll(productImage, textBox);
-
-        return display;
     }
 }

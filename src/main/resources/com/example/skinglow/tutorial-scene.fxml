@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.skinglow.TutorialController"
+           stylesheets="@styles/style.css"
+           fx:id="tutorialView"
+           prefHeight="375"
+           prefWidth="667"
+           style="-fx-background-color: #FCFAF2;">
+    <ImageView fx:id="tutorialScreenBackground"
+               preserveRatio="true"/>
+    <VBox fx:id="tutorialVBox"
+          alignment="CENTER"
+          spacing="10"
+          style="-fx-padding: 20;">
+        <Label fx:id="stepLabel"
+               wrapText="true"
+               textAlignment="CENTER"
+               text="Step 1: Cleanser"
+               style="-fx-font-size: 35px;"/>
+        <ImageView fx:id="stepsImage"
+                       fitWidth="260"
+                       preserveRatio="true"/>
+        <VBox fx:id="stepsVBox"
+              alignment="CENTER"
+              spacing="5">
+            <TitledPane expanded="false"
+                        text="How to Use">
+                <ScrollPane maxWidth="320"
+                            fitToWidth="true"
+                            styleClass="simpleScrollPane">
+                    <VBox>
+                        <Label fx:id="howToUseLabel"
+                               wrapText="true"
+                               maxWidth="320"/>
+                    </VBox>
+                </ScrollPane>
+            </TitledPane>
+            <TitledPane expanded="false"
+                        text="When to Use">
+                <ScrollPane maxWidth="320"
+                            fitToWidth="true"
+                            styleClass="simpleScrollPane">
+                    <VBox>
+                        <Label fx:id="whenToUseLabel"
+                               wrapText="true"
+                               maxWidth="320"/>
+                    </VBox>
+                </ScrollPane>
+            </TitledPane>
+            <TitledPane expanded="false"
+                        text="Morning Routine">
+                <ScrollPane maxWidth="320"
+                            fitToWidth="true"
+                            styleClass="simpleScrollPane">
+                    <VBox>
+                        <Label fx:id="morningRoutineLabel"
+                               wrapText="true"
+                               maxWidth="320"/>
+                    </VBox>
+                </ScrollPane>
+            </TitledPane>
+            <TitledPane expanded="false"
+                        text="Night Routine">
+                <ScrollPane maxWidth="320"
+                            fitToWidth="true"
+                            styleClass="simpleScrollPane">
+                    <VBox>
+                        <Label fx:id="nightRoutineLabel"
+                               wrapText="true"
+                               maxWidth="320"/>
+                    </VBox>
+                </ScrollPane>
+            </TitledPane>
+        </VBox>
+        <Button fx:id="nextStepButton"
+                styleClass="nextStepButton"
+                text="Next Step"
+                onMouseClicked="#nextStep"/>
+    </VBox>
+</StackPane>

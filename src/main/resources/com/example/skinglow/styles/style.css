@@ -61,6 +61,29 @@
     -fx-font-weight: bold;
 }
 
+/* Tutorial Button */
+.tutorialButton {
+    -fx-background-color: #A8D1E7;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FCFAF2;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50;
+}
+
+/* Next Step Button */
+.nextStepButton {
+    -fx-font-size: 16px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 50;
+    -fx-background-color: #E774A6;
+    -fx-text-fill: #FCFAF2;
+}
+
+.nextStepButton:hover {
+    -fx-background-color: #FCFAF2;
+    -fx-text-fill: #E774A6;
+}
+
 /* Scroll Pane */
 .simpleScrollPane {
     -fx-background-color: transparent; /* Remove background */
@@ -99,4 +122,20 @@
     -fx-background-color: #D4A3C4;
     -fx-background-insets: 2;
     -fx-background-radius: 5;
+}
+
+/* TitledPane */
+.titled-pane > .title {
+    -fx-background-color: #E774A6;
+    -fx-background-radius: 15 15 0 0;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.titled-pane > .content {
+    -fx-background-color: #FCFAF2;
+    -fx-padding: 10px;
+    -fx-border-radius: 0 0 15 15;
+    -fx-background-radius: 0 0 15 15;
+    -fx-font-size: 14px;
 }

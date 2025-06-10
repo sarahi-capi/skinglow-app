@@ -25,21 +25,21 @@ public class ReadingProducts {
                     continue;
                 }
 
-                String[] fields = line.split(",", -1); // Split by comma
-                if (fields.length == 7) { // If we have 6 columns (name, brand, skinType. mainComponent, presentation, productType, imagePath)
+                String[] text = line.split(",", -1); // Split by comma
+                if (text.length == 11) { // If we have 11 columns (name, brand, skinType, mainComponent, presentation, productType, imagePath, productInfo, howToUse, benefits, price)
 
-                    if (fields[5].equals("Cleanser")) {
-                        switch (fields[4]) {
+                    if (text[5].equals("Cleanser")) {
+                        switch (text[4]) {
                             case "Green Tea" ->
-                                    skincareProductsList.add(new GreenTeaCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
+                                    skincareProductsList.add(new GreenTeaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
                             case "Salicylic Acid" ->
-                                    skincareProductsList.add(new SalicylicAcidCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
+                                    skincareProductsList.add(new SalicylicAcidCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
                             case "Tea Tree" ->
-                                    skincareProductsList.add(new TeaTreeOilCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
+                                    skincareProductsList.add(new TeaTreeOilCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
                             case "Centella Asiatica" ->
-                                    skincareProductsList.add(new CentellaAsiaticaCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
+                                    skincareProductsList.add(new CentellaAsiaticaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
                             default ->
-                                    skincareProductsList.add(new RiceWaterCleanser(fields[0], fields[1], fields[2], fields[4], fields[6]));
+                                    skincareProductsList.add(new RiceWaterCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
                         }
                     }
 

@@ -1,6 +1,5 @@
 package com.example.skinglow;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,29 +12,33 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class MainSceneController {
+
+    // To set images
     @FXML private ImageView imageLogo;
     @FXML private ImageView mainScreenBackground;
 
+    // To change the cursors
     @FXML private Button getStartedButton;
     @FXML private StackPane mainView;
 
     @FXML
     public void initialize() {
-        imageLogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/SkinCareLogo.png"))));
-        mainScreenBackground.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MainScreenBackground.png"))));
+        ImageManager imageManager = new ImageManager();
 
-        // Changing cursor and hand image
-        Image cursorImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MousePointer.png")));
-        mainView.setCursor(new ImageCursor(cursorImage));
+        // Setting logo and background
+        imageManager.addingImage(imageLogo, "/images/SkinCareLogo.png");
+        imageManager.addingImage(mainScreenBackground, "/images/MainScreenBackground.png");
 
-        Image handImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/MouseHand.png")));
-        getStartedButton.setCursor(new ImageCursor(handImage));
+        // Changing pointer and hand images
+        SettingCursor cursor = new SettingCursor();
+
+        cursor.pointerCursor(mainView);
+        cursor.handCursor(getStartedButton);
     }
 
     // Changing windows with a fading animation
@@ -49,27 +52,9 @@ public class MainSceneController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene currentScene = stage.getScene();
 
-        // Call your reusable transition
-        fadeTransition(currentScene, newRoot, stage);
-    }
-
-    public void fadeTransition(Scene currentScene, Parent newRoot, Stage stage) {
-        Node rootNode = currentScene.getRoot();
-
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(500), rootNode);
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.0);
-
-        fadeOut.setOnFinished(event -> {
-            stage.setScene(new Scene(newRoot, currentScene.getWidth(), currentScene.getHeight()));
-
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newRoot);
-            fadeIn.setFromValue(0.0);
-            fadeIn.setToValue(1.0);
-            fadeIn.play();
-        });
-
-        fadeOut.play();
+        // Fading out the old window and fading in the new window
+        Transition transition = new Transition();
+        transition.fadeOutInTransition(currentScene, newRoot, stage);
     }
 }
 
