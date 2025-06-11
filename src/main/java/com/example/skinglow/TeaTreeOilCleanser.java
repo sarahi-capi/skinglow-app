@@ -3,17 +3,17 @@ package com.example.skinglow;
 public class TeaTreeOilCleanser extends Cleanser implements IGiveTips {
 
     public TeaTreeOilCleanser(String name, String brand, String skinType, String presentation, String imagePath,
-                              String productInfo, String howToUse, String benefits, float price) {
-        super(name, brand, skinType, "Tea Tree Oil", presentation, imagePath, productInfo, howToUse, benefits, price);
+                              String productInfo, String howToUse, String benefits, float price, String url) {
+        super(name, brand, skinType, "Tea Tree Oil", presentation, imagePath, productInfo, howToUse, benefits, price, url);
     }
 
     @Override
-    public void giveTips(String skinType) {
-
+    public String giveTips(String skinType) {
+        return "This is a tip for " + skinType;
     }
 
     @Override
-    public void giveTips() {
-
+    public String giveTips() {
+        return "This is a tip";
     }
 }

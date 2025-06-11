@@ -3,8 +3,8 @@ package com.example.skinglow;
 public class Cleanser extends SkincareProducts {
 
     public Cleanser(String name, String brand, String skinType, String mainComponents, String presentation, String imagePath,
-                    String productInfo, String howToUse, String benefits, float price) {
-        super(name, brand, skinType, mainComponents, presentation, "Cleanser", imagePath, productInfo, howToUse, benefits, price);
+                    String productInfo, String howToUse, String benefits, float price, String url) {
+        super(name, brand, skinType, mainComponents, presentation, "Cleanser", imagePath, productInfo, howToUse, benefits, price, url);
     }
 
     @Override

@@ -12,9 +12,11 @@ public abstract class SkincareProducts {
     private String howToUse;
     private String benefits;
     private float price;
+    private String url;
 
+    // Constructor
     public SkincareProducts(String name, String brand, String skinType, String mainComponents, String presentation, String productType, String imagePath,
-                            String productInfo, String howToUse, String benefits, float price) {
+                            String productInfo, String howToUse, String benefits, float price, String url) {
         this.name = name;
         this.brand = brand;
         this.skinType = skinType;
@@ -26,8 +28,10 @@ public abstract class SkincareProducts {
         this.howToUse = howToUse;
         this.benefits = benefits;
         this.price = price;
+        this.url = url;
     }
 
+    // Getters
     public String getName() {
         return name;
     }
@@ -56,6 +60,27 @@ public abstract class SkincareProducts {
         return imagePath;
     }
 
+    public String getProductInfo() {
+        return productInfo;
+    }
+
+    public String getHowToUse() {
+        return howToUse;
+    }
+
+    public String getBenefits() {
+        return benefits;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    // Abstract methods
     abstract String howToUse();
     abstract String whenToUse();
     abstract String morningRoutine();

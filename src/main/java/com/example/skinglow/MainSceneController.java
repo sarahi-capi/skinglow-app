@@ -3,18 +3,15 @@ package com.example.skinglow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class MainSceneController {
 
@@ -43,7 +40,7 @@ public class MainSceneController {
 
     // Changing windows with a fading animation
     @FXML
-    private void fadeWindow(ActionEvent event) throws IOException {
+    private void catalogWindow(ActionEvent event) throws IOException {
         // Load the new scene root
         FXMLLoader loader = new FXMLLoader(getClass().getResource("catalog-scene.fxml"));
         Parent newRoot = loader.load();
@@ -53,7 +50,7 @@ public class MainSceneController {
         Scene currentScene = stage.getScene();
 
         // Fading out the old window and fading in the new window
-        Transition transition = new Transition();
+        WindowTransition transition = new WindowTransition();
         transition.fadeOutInTransition(currentScene, newRoot, stage);
     }
 }

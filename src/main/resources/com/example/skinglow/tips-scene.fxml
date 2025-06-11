@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.skinglow.TipsController"
+           stylesheets="@styles/style.css"
+           fx:id="tipsView"
+           prefHeight="375"
+           prefWidth="375"
+           style="-fx-background-color: #FCFAF2;">
+    <VBox alignment="CENTER">
+        <Label fx:id="tips1"/>
+        <Label fx:id="tips2"/>
+    </VBox>
+
+</StackPane>

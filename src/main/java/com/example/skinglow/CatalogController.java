@@ -3,7 +3,7 @@ package com.example.skinglow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,11 +17,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 public class CatalogController {
-    // Image Logo
+    // Logo image
     @FXML private ImageView imageLogo;
 
     // Images for the filter menu
@@ -63,7 +64,7 @@ public class CatalogController {
     ImageManager imageManager = new ImageManager();
 
     // To manage the fade in transition
-    Transition fadeIn = new Transition();
+    WindowTransition fadeIn = new WindowTransition();
 
     // To manage the product's display
     ProductDisplayManager productDisplay = new ProductDisplayManager();
@@ -114,23 +115,37 @@ public class CatalogController {
         imageManager.addingImage(imageViews, paths);
 
         // Adding products to be displayed
-        ReadingProducts readingProducts = new ReadingProducts();
+        ReadingCSV readingProducts = new ReadingCSV();
         skincareProductsList = readingProducts.loadProductsFromCSV("/csv/products.csv");
 
         // Sorting by name
-        skincareProductsList.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
+        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getName));
 
         // For each product in the list, create a product and add it to the VBox productDisplay
-        skincareProductsList.forEach(product ->
-                productDisplayVBox.getChildren().add(
-                        productDisplay.createProductDisplay(
-                                product.getName(),
-                                product.getBrand(),
-                                product.getSkinType(),
-                                product.getImagePath()
-                        )
-                )
-        );
+        skincareProductsList.forEach(product -> {
+            // Creating the visual node that shows the product's info and image
+            Node productNode = productDisplay.createProductDisplay(
+                    product.getName(),
+                    product.getBrand(),
+                    product.getSkinType(),
+                    product.getImagePath()
+            );
+
+            // This stores the actual SkincareProduct object inside the node to retrieve it later
+            productNode.setUserData(product);
+
+            // Add click listener. This means when clicking on the product, will run showProductWindow
+            productNode.setOnMouseClicked(event -> {
+                try {
+                    showProductWindow(event);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            // Add all the products to the VBox
+            productDisplayVBox.getChildren().add(productNode);
+        });
 
         // Changing cursor and hand image
         SettingCursor settingCursor = new SettingCursor();
@@ -143,8 +158,8 @@ public class CatalogController {
         settingCursor.editorCursor(searchField);
 
         // Changing text on hover for the tutorialButton
-        tutorialButton.setOnMouseEntered(event -> tutorialButton.setText("Skincare Steps"));
-        tutorialButton.setOnMouseExited(event -> tutorialButton.setText("?"));
+        tutorialButton.setOnMouseEntered(_ -> tutorialButton.setText("Skincare Steps"));
+        tutorialButton.setOnMouseExited(_ -> tutorialButton.setText("?"));
     }
 
     // Method to display a window with explanation of the Skincare routine
@@ -167,6 +182,47 @@ public class CatalogController {
         newStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/SkinCareLogo.png"))));
 
     }
+
+    // Method to change to new window with more information about a product
+    @FXML
+    private void showProductWindow(MouseEvent event) throws IOException {
+        // Load new scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("show-product-scene.fxml"));
+        Parent newRoot = loader.load();
+
+        // This gets the node that was clicked, in this case, the HBox containing the information of certain product
+        Node clickedNode = (Node) event.getSource();
+
+        // Then, we prepare a SkincareProducts object to store the clicked product
+        SkincareProducts clickedProduct = null;
+
+        // This will get the actual visual element that was clicked, a Label or the image, for example
+        Node node = (Node) event.getTarget();
+
+        // Here, we will check if node.getUserData() has the product info. If not, we will get the parent node that has all the data
+        while (node != null && clickedProduct == null) {
+            clickedProduct = (SkincareProducts) node.getUserData();
+            node = node.getParent();
+        }
+
+        // If there is the case that the program couldn't find the product info, will print an error message
+        if (clickedProduct == null) {
+            System.err.println("No product attached to clicked node!");
+            return;
+        }
+
+        // Sets the product to the new scene controller
+        ShowProductController controller = loader.getController();
+        controller.setProduct(clickedProduct);
+
+        // Open with transition
+        Stage stage = (Stage) clickedNode.getScene().getWindow();
+        Scene currentScene = stage.getScene();
+
+        WindowTransition transition = new WindowTransition();
+        transition.fadeOutInTransition(currentScene, newRoot, stage);
+    }
+
 
     // Method to filter a search based on a query
     @FXML
@@ -195,7 +251,7 @@ public class CatalogController {
     @FXML
     private void filterAll(MouseEvent event) {
         // Sorting by name
-        skincareProductsList.sort((product1, product2) -> product1.getName().compareTo(product2.getName()));
+        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getName));
 
         // Adding the products to the VBox
         productDisplay.showProducts(skincareProductsList, productDisplayVBox);
@@ -205,7 +261,7 @@ public class CatalogController {
     @FXML
     private void filterBrand(MouseEvent event) {
         // Sorting by Brand
-        skincareProductsList.sort((product1, product2) -> product1.getBrand().compareTo(product2.getBrand()));
+        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getBrand));
 
         // Adding the products to the VBox
         productDisplay.showProducts(skincareProductsList, productDisplayVBox);
@@ -218,8 +274,7 @@ public class CatalogController {
         List<SkincareProducts> oilySkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getSkinType().equals("Oily Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted((
-                                                           product1, product2) -> product1.getName().compareTo(product2.getName())
+                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -235,8 +290,7 @@ public class CatalogController {
         List<SkincareProducts> sensitiveSkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getSkinType().equals("Sensitive Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted((
-                        product1, product2) -> product1.getName().compareTo(product2.getName())
+                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -252,8 +306,7 @@ public class CatalogController {
         List<SkincareProducts> drySkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getSkinType().equals("Dry Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted((
-                        product1, product2) -> product1.getName().compareTo(product2.getName())
+                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -269,8 +322,7 @@ public class CatalogController {
         List<SkincareProducts> normalSkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getSkinType().equals("Normal Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted((
-                        product1, product2) -> product1.getName().compareTo(product2.getName())
+                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -287,7 +339,7 @@ public class CatalogController {
         List<SkincareProducts> cleanserProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Cleanser")).sorted(
-                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                        Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -303,7 +355,7 @@ public class CatalogController {
         List<SkincareProducts> tonerProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Toner")).sorted(
-                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                        Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -319,7 +371,7 @@ public class CatalogController {
         List<SkincareProducts> moisturizerProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Moisturizer")).sorted(
-                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                        Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -335,7 +387,7 @@ public class CatalogController {
         List<SkincareProducts> serumProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Serum")).sorted(
-                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                        Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();
@@ -351,7 +403,7 @@ public class CatalogController {
         List<SkincareProducts> sunscreenProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Sunscreen")).sorted(
-                        (product1, product2) -> product1.getName().compareTo(product2.getName())
+                        Comparator.comparing(SkincareProducts::getName)
                 )
                 // Adding them to the list
                 .toList();

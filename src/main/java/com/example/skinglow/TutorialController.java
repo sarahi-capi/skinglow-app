@@ -3,14 +3,12 @@ package com.example.skinglow;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -78,11 +76,11 @@ public class TutorialController {
 
         // Creating objects with no information just to get the instructions
         skincareProductsList.addAll(List.of(
-                new Cleanser("", "", "", "", "", "", "", "", "", 0),
-                new Toner("", "", "", "", "", "", "", "", "", 0),
-                new Serum("", "", "", "", "", "", "", "", "", 0),
-                new Moisturizer("", "", "", "", "", "", "", "", "", 0),
-                new Sunscreen("", "", "", "", "", "", "", "", "", 0)
+                new Cleanser("", "", "", "", "", "", "", "", "", 0, ""),
+                new Toner("", "", "", "", "", "", "", "", "", 0, ""),
+                new Serum("", "", "", "", "", "", "", "", "", 0, ""),
+                new Moisturizer("", "", "", "", "", "", "", "", "", 0, ""),
+                new Sunscreen("", "", "", "", "", "", "", "", "", 0, "")
         ));
 
         // Filling up with the first step information
@@ -107,7 +105,7 @@ public class TutorialController {
             imageManager.addingImage(stepsImage, step.imagePath);
 
             // Getting the current step information from the Skincare List
-            SkincareProducts currentStep = skincareProductsList.get(counter);
+            SkincareProducts currentStep = skincareProductsList.get(counter + 1);
             tutorialInformationManager.settingInstructions(currentStep, instructions);
 
             // Adding 1 to the counter

@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Transition {
+public class WindowTransition {
 
     // Fading out an old window and fading in a new window
     public void fadeOutInTransition(Scene currentScene, Parent newRoot, Stage stage) {

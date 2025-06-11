@@ -187,6 +187,7 @@
                     hbarPolicy="NEVER"
                     styleClass="simpleScrollPane">
             <VBox fx:id="productDisplayVBox"
+                  onMouseClicked="#showProductWindow"
                   alignment="CENTER"
                   spacing="20"/>
         </ScrollPane>

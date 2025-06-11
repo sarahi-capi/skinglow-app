@@ -2,8 +2,8 @@ package com.example.skinglow;
 
 public class Moisturizer extends SkincareProducts {
     public Moisturizer(String name, String brand, String skinType, String mainComponents, String presentation, String imagePath,
-                 String productInfo, String howToUse, String benefits, float price) {
-        super(name, brand, skinType, mainComponents, presentation, "Moisturizer", imagePath, productInfo, howToUse, benefits, price);
+                 String productInfo, String howToUse, String benefits, float price, String url) {
+        super(name, brand, skinType, mainComponents, presentation, "Moisturizer", imagePath, productInfo, howToUse, benefits, price, url);
     }
 
     @Override

@@ -27,7 +27,7 @@
             <VBox alignment="CENTER" translateY="80" spacing="10">
                 <Button fx:id="getStartedButton"
                         text="Get started"
-                        onAction="#fadeWindow"
+                        onAction="#catalogWindow"
                         wrapText="true"
                         styleClass="getStartedButton"/>
                 <Label text="Knowing which products are suitable for your skin couldn't be more easier!"

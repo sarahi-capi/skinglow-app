@@ -2,9 +2,6 @@ package com.example.skinglow;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.ImageCursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -30,7 +27,7 @@ public class SkinGlowApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Transition fadeIn = new Transition();
+        WindowTransition fadeIn = new WindowTransition();
         fadeIn.fadeInTransition(fxmlLoader.getRoot());
     }
 

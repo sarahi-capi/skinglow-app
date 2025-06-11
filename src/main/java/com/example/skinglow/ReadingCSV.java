@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ReadingProducts {
+public class ReadingCSV {
 
     public List<SkincareProducts> loadProductsFromCSV(String filepath) {
 
@@ -26,20 +26,20 @@ public class ReadingProducts {
                 }
 
                 String[] text = line.split(",", -1); // Split by comma
-                if (text.length == 11) { // If we have 11 columns (name, brand, skinType, mainComponent, presentation, productType, imagePath, productInfo, howToUse, benefits, price)
+                if (text.length == 12) { // If we have 11 columns (name, brand, skinType, mainComponent, presentation, productType, imagePath, productInfo, howToUse, benefits, price, url)
 
                     if (text[5].equals("Cleanser")) {
                         switch (text[4]) {
                             case "Green Tea" ->
-                                    skincareProductsList.add(new GreenTeaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
+                                    skincareProductsList.add(new GreenTeaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                             case "Salicylic Acid" ->
-                                    skincareProductsList.add(new SalicylicAcidCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
+                                    skincareProductsList.add(new SalicylicAcidCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                             case "Tea Tree" ->
-                                    skincareProductsList.add(new TeaTreeOilCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
+                                    skincareProductsList.add(new TeaTreeOilCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                             case "Centella Asiatica" ->
-                                    skincareProductsList.add(new CentellaAsiaticaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
+                                    skincareProductsList.add(new CentellaAsiaticaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                             default ->
-                                    skincareProductsList.add(new RiceWaterCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10])));
+                                    skincareProductsList.add(new RiceWaterCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                         }
                     }
 
@@ -48,7 +48,7 @@ public class ReadingProducts {
 
         } catch (IOException e) {
             // If something goes wrong (file not found, etc.)
-            e.printStackTrace(); // Print error in console
+            throw new RuntimeException(e);
         }
 
         return skincareProductsList;

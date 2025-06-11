@@ -19,6 +19,12 @@
     -fx-text-fill: black;
 }
 
+.logoLabelTiny {
+    -fx-font-family: 'Delius Swash Caps';
+    -fx-font-size: 28px;
+    -fx-text-fill: black;
+}
+
 /* Get Started Button */
 .getStartedButton {
     -fx-font-size: 16px;
@@ -31,6 +37,34 @@
 .getStartedButton:hover {
     -fx-background-color: #FCFAF2;
     -fx-text-fill: #FFBFC5;
+}
+
+/* Standard Pink Button */
+.standardPinkButton {
+    -fx-font-size: 16px;
+    -fx-padding: 10 12 10 12;
+    -fx-background-radius: 50;
+    -fx-background-color: #EB8DB5;
+    -fx-text-fill: #F6CBDE;
+}
+
+.standardPinkButton:hover {
+    -fx-background-color: #F6CBDE;
+    -fx-text-fill: #EB8DB5;
+}
+
+/* Small Standard Blue Button */
+.smallStandardBlueButton {
+    -fx-font-size: 14px;
+    -fx-padding: 8;
+    -fx-background-radius: 50;
+    -fx-background-color: #8FC4E0;
+    -fx-text-fill: #DFEEF6;
+}
+
+.smallStandardBlueButton:hover {
+    -fx-background-color: #DFEEF6;
+    -fx-text-fill: #8FC4E0;
 }
 
 /* Text Field Style */
@@ -139,3 +173,17 @@
     -fx-background-radius: 0 0 15 15;
     -fx-font-size: 14px;
 }
+
+/* Main Component Label */
+.mainComponentLabel {
+    -fx-text-fill: #FCFAF2;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.mainComponentVBox {
+    -fx-background-color: #A8D1E7;
+    -fx-background-radius: 50;
+    -fx-padding: 10;
+}
+
