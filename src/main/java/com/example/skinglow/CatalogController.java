@@ -185,7 +185,7 @@ public class CatalogController {
 
     // Method to change to new window with more information about a product
     @FXML
-    private void showProductWindow(MouseEvent event) throws IOException {
+    public void showProductWindow(MouseEvent event) throws IOException {
         // Load new scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("show-product-scene.fxml"));
         Parent newRoot = loader.load();
@@ -237,14 +237,30 @@ public class CatalogController {
                 // If the name in lower case contains the query
                 .filter(product -> product.getName().toLowerCase().contains(query))
                 // Then, add these products to the display
-                .forEach(product -> productDisplayVBox.getChildren().add(
-                        productDisplay.createProductDisplay(
-                                product.getName(),
-                                product.getBrand(),
-                                product.getSkinType(),
-                                product.getImagePath()
-                        )
-                ));
+                .forEach(product -> {
+                    // For each product that contains the query, create a product and add it to the VBox productDisplay
+                    Node productNode = productDisplay.createProductDisplay(
+                            product.getName(),
+                            product.getBrand(),
+                            product.getSkinType(),
+                            product.getImagePath()
+                    );
+
+                    // Here, we save the data of the product
+                    productNode.setUserData(product);
+
+                    // Then, if we click the product to see more information, run this
+                    productNode.setOnMouseClicked(e -> {
+                        try {
+                            showProductWindow(e);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
+
+                    // Display the products by adding them to the VBox
+                    productDisplayVBox.getChildren().add(productNode);
+                });
     }
 
     // Method to show all the products

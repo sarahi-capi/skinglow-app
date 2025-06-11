@@ -2,12 +2,14 @@ package com.example.skinglow;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,16 +25,29 @@ public class ProductDisplayManager {
         productDisplayVBox.getChildren().clear();
 
         // For each product in the list, create a product and add it to the VBox productDisplay
-        skincareProductsList.forEach(product ->
-                productDisplayVBox.getChildren().add(
-                        createProductDisplay(
-                                product.getName(),
-                                product.getBrand(),
-                                product.getSkinType(),
-                                product.getImagePath()
-                        )
-                )
-        );
+        skincareProductsList.forEach(product -> {
+            Node productNode = createProductDisplay(
+                    product.getName(),
+                    product.getBrand(),
+                    product.getSkinType(),
+                    product.getImagePath()
+            );
+
+            // Here, we save the data of the product
+            productNode.setUserData(product);
+
+            // Then, if we click the product to see more information, run this
+            productNode.setOnMouseClicked(mouseEvent -> {
+                try {
+                    new CatalogController().showProductWindow(mouseEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            // Display the products by adding them to the VBox
+            productDisplayVBox.getChildren().add(productNode);
+        });
     }
 
     // Method to create a display of a product, where it adds an image and some informative text
