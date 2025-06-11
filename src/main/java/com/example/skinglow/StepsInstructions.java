@@ -2,7 +2,7 @@ package com.example.skinglow;
 
 import javafx.scene.control.Label;
 
-public class TutorialInformationManager {
+public class StepsInstructions {
 
     // Method to show the instructions based on the Skincare step
     public void settingInstructions(SkincareProducts skincareProduct, Label[] label) {

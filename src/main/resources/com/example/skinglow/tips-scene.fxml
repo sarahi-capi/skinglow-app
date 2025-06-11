@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.skinglow.TipsController"
@@ -12,8 +13,38 @@
            prefWidth="375"
            style="-fx-background-color: #FCFAF2;">
     <VBox alignment="CENTER">
-        <Label fx:id="tips1"/>
-        <Label fx:id="tips2"/>
+        <ScrollPane
+                maxWidth="290"
+                maxHeight="290"
+                hbarPolicy="NEVER"
+                styleClass="simpleScrollPane">
+            <VBox alignment="CENTER"
+                  maxWidth="270"
+                  spacing="10">
+                <Label fx:id="generalTips"
+                       wrapText="true"
+                       alignment="CENTER"
+                       textAlignment="CENTER"
+                       maxWidth="270"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label fx:id="tips1"
+                       maxWidth="270"
+                       wrapText="true"
+                       alignment="CENTER"
+                       style="-fx-font-size: 15px;"/>
+                <Label fx:id="specialTips"
+                       wrapText="true"
+                       alignment="CENTER"
+                       textAlignment="CENTER"
+                       maxWidth="270"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label fx:id="tips2"
+                       maxWidth="270"
+                       wrapText="true"
+                       alignment="CENTER"
+                       style="-fx-font-size: 15px;"/>
+            </VBox>
+        </ScrollPane>
     </VBox>
-
 </StackPane>
+

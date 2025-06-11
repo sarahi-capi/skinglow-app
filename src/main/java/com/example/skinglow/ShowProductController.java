@@ -84,8 +84,8 @@ public class ShowProductController {
         savedProduct = product;
 
         // Setting all the labels text
-        mainComponentLabel.setText(String.format("With " + product.getMainComponents()));
         nameLabel.setText(product.getName());
+        mainComponentLabel.setText(String.format("With " + product.getMainComponents()));
         brandLabel.setText(product.getBrand());
         priceLabel.setText(String.format(" - €%.2f", product.getPrice()));
         presentationLabel.setText(String.format("- Product presentation: " + product.getPresentation()));

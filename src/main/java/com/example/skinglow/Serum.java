@@ -9,52 +9,43 @@ public class Serum extends SkincareProducts {
     @Override
     public String howToUse() {
         return """
-               🔹 Apply after toner, before moisturizer
-               
-               General Steps:
-                1. Apply 2–3 drops of serum to fingertips.
-                2. Gently spread and press into skin (avoid rubbing harshly).
-                3. Wait 30 seconds to 1 minute before applying the next layer.
+           🔹 Apply after toner, before moisturizer
+           
+            1. Dispense 1–2 drops of serum onto your fingertips
+            2. Gently press or pat it into your face and neck
+            3. Do not rub—let it absorb naturally
 
-               💡 For multiple serums, apply from thinnest to thickest texture or by priority of concern (e.g., acne first, hydration second).
-               ⚠️ Avoid layering strong actives together unless you're sure they’re compatible (e.g., don’t mix Vitamin C + AHA + Retinol in one routine).
-               """;
+           💡 If layering serums: apply the thinnest one first, wait 30 seconds, then follow with thicker ones.
+           """;
     }
 
     @Override
     public String whenToUse() {
         return """
-                - Step: Step 3 in your skincare routine (after toner, before moisturizer).
-                - Purpose: To deliver targeted active ingredients deep into the skin to treat specific concerns (e.g., acne, pigmentation, fine lines, dehydration, dullness).
-                - Frequency: Once or twice daily (AM & PM), depending on the serum and your skin’s tolerance.
-               """;
+            - Step: Step 3 in your skincare routine (after toner).
+            - Purpose: Delivers concentrated active ingredients to target specific concerns (hydration, wrinkles, acne, etc.).
+            - Frequency: Once or twice daily, depending on serum strength and skin type.
+           """;
     }
 
     @Override
     public String morningRoutine() {
         return """
-                Daytime is great for protective or brightening serums, such as:
-                - Vitamin C (brightens, evens tone, antioxidant)
-                - Hyaluronic Acid (deep hydration)
-                - Centella Asiatica or Green Tea (calms skin, anti-inflammatory)
-                    ➤ Always follow with SPF after applying active serums in the AM!
-               """;
+            Use a lightweight serum with antioxidants (like Vitamin C) to brighten and protect your skin from free radicals.
+                ➤ Pat gently onto clean, toned skin before moisturizer.
+           """;
     }
 
     @Override
     public String nightRoutine() {
         return """
-                Use toner after cleansing to rebalance and refresh your skin:
+            Use a richer serum at night with repairing or hydrating ingredients (like hyaluronic acid, peptides, or retinol):
 
-                1. Hydrating Toner
-                    Adds a moisture boost, calms and soothes the skin.
-                        ➤ Apply with hands or pat in using cotton pad.
-             
-                2. Exfoliating Toner (2–4 times a week only)
-                    Removes dead skin cells, unclogs pores
-                        ➤ Ingredients to look for: AHA, BHA, PHA
-      
-               💡 Exfoliating toners are best used at night to avoid sun sensitivity.
-               """;
+            1. Apply after toner
+            2. Focus on areas with specific concerns
+            3. Let it fully absorb before moisturizing
+
+           💡 Retinol serums are best used at night and followed with sunscreen during the day.
+           """;
     }
 }

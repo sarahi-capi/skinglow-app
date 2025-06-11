@@ -22,11 +22,14 @@
             <Label text="SkinGlow"
                    styleClass="logoLabelTiny"/>
         </HBox>
-        <Label fx:id="nameLabel"
-               wrapText="true"
-               textAlignment="CENTER"
-               maxWidth="320"
-               style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+        <VBox alignment="CENTER">
+            <Label fx:id="nameLabel"
+                   wrapText="true"
+                   textAlignment="CENTER"
+                   alignment="CENTER"
+                   maxWidth="320"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+        </VBox>
         <ImageView fx:id="productImage"
                    fitWidth="240"
                    preserveRatio="true"/>

@@ -44,7 +44,7 @@ public class TutorialController {
     ImageManager imageManager = new ImageManager();
 
     // To manage the tutorial information display
-    TutorialInformationManager tutorialInformationManager = new TutorialInformationManager();
+    StepsInstructions tutorialInformationManager = new StepsInstructions();
 
     // To manage the steps and their corresponding image
     private final List<Steps> steps = List.of(
@@ -92,6 +92,7 @@ public class TutorialController {
         cursor.handCursor(nextStepButton);
     }
 
+    // Method to update the information displayed based on the step of the Skincare
     @FXML
     private void nextStep(MouseEvent event) {
 
