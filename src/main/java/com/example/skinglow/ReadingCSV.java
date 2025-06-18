@@ -25,13 +25,28 @@ public class ReadingCSV {
                     continue;
                 }
 
-                String[] text = line.split(",", -1); // Split by comma
+                // Because in the CSV we have text that is surrounded by quotes and contains commas inside them, this Regex will say
+                // Don’t split the commas that are inside double quotes.
+                // First, we look for a comma to split on.
+                // (?=...) means that the program can split it but only if the content after the comma matches a certain rule
+                // [^\"] means that you can match any character that is not a quote (") and [^"]* is to match 0 or more of these characters that are not quotes.
+                // (?:[^\"]*"[^\"]*")* says that after the comma, there should be zero or more pairs of quotes. If, for example there are three quotes, this means
+                // we are inside a quoted section.
+                // (?=(...)*[^\"]*$) This part says split the comma if it’s followed by an even number of quotes up to the end.
+                // $ means to match everything up to the end of the line.
+                String[] text = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+                // Removing the quotes for the split text
+                for (int i = 0; i < text.length; i++) {
+                    text[i] = text[i].replaceAll("^\"|\"$", "").trim();
+                }
+
                 if (text.length == 12) { // If we have 11 columns (name, brand, skinType, mainComponent, presentation, productType, imagePath, productInfo, howToUse, benefits, price, url)
 
                     // Depending on the product type and main component, create a SkincareProducts object
                     switch (text[5]) {
                         case "Cleanser" -> {
-                            switch (text[4]) {
+                            switch (text[3]) {
                                 case "Green Tea" ->
                                         skincareProductsList.add(new GreenTeaCleanser(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 case "Salicylic Acid" ->
@@ -45,19 +60,21 @@ public class ReadingCSV {
                             }
                         }
                         case "Toner" -> {
-                            switch (text[4]) {
+                            switch (text[3]) {
                                 case "Centella Asiatica" ->
                                         skincareProductsList.add(new CentellaAsiaticaToner(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 case "Rice Water" ->
                                         skincareProductsList.add(new RiceWaterToner(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 case "Niacinamide" ->
                                         skincareProductsList.add(new NiacinamideToner(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
+                                case "Hyaluronic Acid" ->
+                                        skincareProductsList.add(new HyaluronicAcidToner(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 default ->
                                         skincareProductsList.add(new TeaTreeOilToner(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                             }
                         }
                         case "Serum" -> {
-                            switch (text[4]) {
+                            switch (text[3]) {
                                 case "Vitamin C" ->
                                         skincareProductsList.add(new VitaminCSerum(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 case "Retinol" ->
@@ -73,7 +90,7 @@ public class ReadingCSV {
                             }
                         }
                         case "Moisturizer" -> {
-                            switch (text[4]) {
+                            switch (text[3]) {
                                 case "Ceramide" ->
                                         skincareProductsList.add(new CeramideMoisturizer(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 case "Green Tea" ->
@@ -87,7 +104,7 @@ public class ReadingCSV {
                             }
                         }
                         case "Sunscreen" -> {
-                            switch (text[4]) {
+                            switch (text[3]) {
                                 case "Mineral" ->
                                         skincareProductsList.add(new MineralSunscreen(text[0], text[1], text[2], text[4], text[6], text[7], text[8], text[9], Float.parseFloat(text[10]), text[11]));
                                 case "Chemical" ->

@@ -31,7 +31,7 @@ public class CatalogController {
     @FXML private ImageView oilyIcon;
     @FXML private ImageView sensitiveIcon;
     @FXML private ImageView dryIcon;
-    @FXML private ImageView normalIcon;
+    @FXML private ImageView allSkinTypesIcon;
     @FXML private ImageView cleanserIcon;
     @FXML private ImageView tonerIcon;
     @FXML private ImageView moisturizerIcon;
@@ -51,7 +51,7 @@ public class CatalogController {
     @FXML private VBox oilySkin;
     @FXML private VBox sensitiveSkin;
     @FXML private VBox drySkin;
-    @FXML private VBox normalSkin;
+    @FXML private VBox allSkinTypes;
     @FXML private VBox cleanser;
     @FXML private VBox toner;
     @FXML private VBox moisturizer;
@@ -81,7 +81,7 @@ public class CatalogController {
                 oilySkin,
                 sensitiveSkin,
                 drySkin,
-                normalSkin,
+                allSkinTypes,
                 cleanser,
                 toner,
                 moisturizer,
@@ -96,7 +96,7 @@ public class CatalogController {
         );
 
         // Saving ImageView objects and their paths into two arrays
-        ImageView[] imageViews = {imageLogo, allIcon, brandIcon, oilyIcon, sensitiveIcon, dryIcon, normalIcon, cleanserIcon, tonerIcon,
+        ImageView[] imageViews = {imageLogo, allIcon, brandIcon, oilyIcon, sensitiveIcon, dryIcon, allSkinTypesIcon, cleanserIcon, tonerIcon,
                                   moisturizerIcon, serumIcon, sunscreenIcon};
         String[] paths = {"/images/SkinCareLogo.png",
                           "/images/AllProducts.png",
@@ -104,7 +104,7 @@ public class CatalogController {
                           "/images/OilySkin.png",
                           "/images/SensitiveSkin.png",
                           "/images/DrySkin.png",
-                          "/images/NormalSkin.png",
+                          "/images/AllSkinTypes.png",
                           "/images/Cleanser.png",
                           "/images/Toner.png",
                           "/images/Moisturizer.png",
@@ -119,7 +119,7 @@ public class CatalogController {
         skincareProductsList = readingProducts.loadProductsFromCSV("/csv/products.csv");
 
         // Sorting by name
-        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getName));
+        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getNameLowercase));
 
         // For each product in the list, create a product and add it to the VBox productDisplay
         skincareProductsList.forEach(product -> {
@@ -267,7 +267,7 @@ public class CatalogController {
     @FXML
     private void filterAll(MouseEvent event) {
         // Sorting by name
-        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getName));
+        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getNameLowercase));
 
         // Adding the products to the VBox
         productDisplay.showProducts(skincareProductsList, productDisplayVBox);
@@ -277,7 +277,7 @@ public class CatalogController {
     @FXML
     private void filterBrand(MouseEvent event) {
         // Sorting by Brand
-        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getBrand));
+        skincareProductsList.sort(Comparator.comparing(SkincareProducts::getBrandLowercase));
 
         // Adding the products to the VBox
         productDisplay.showProducts(skincareProductsList, productDisplayVBox);
@@ -289,8 +289,7 @@ public class CatalogController {
         // Creating a List with products that are suitable for oily skin
         List<SkincareProducts> oilySkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
-                .filter(product -> product.getSkinType().equals("Oily Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
+                .filter(product -> product.getSkinType().equals("Oily Skin")).sorted(Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -305,8 +304,7 @@ public class CatalogController {
         // Creating a List with products that are suitable for sensitive skin
         List<SkincareProducts> sensitiveSkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
-                .filter(product -> product.getSkinType().equals("Sensitive Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
+                .filter(product -> product.getSkinType().equals("Sensitive Skin")).sorted(Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -321,8 +319,7 @@ public class CatalogController {
         // Creating a List with products that are suitable for dry skin
         List<SkincareProducts> drySkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
-                .filter(product -> product.getSkinType().equals("Dry Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
+                .filter(product -> product.getSkinType().equals("Dry Skin")).sorted(Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -331,20 +328,19 @@ public class CatalogController {
         productDisplay.showProducts(drySkinProducts, productDisplayVBox);
     }
 
-    // Method to filter by Normal Skin
+    // Method to filter by All Skin Types
     @FXML
-    private void filterNormalSkin(MouseEvent event) {
+    private void filterAllSkinTypes(MouseEvent event) {
         // Creating a List with products that are suitable for normal skin
-        List<SkincareProducts> normalSkinProducts = skincareProductsList.stream()
+        List<SkincareProducts> allSkinTypesProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
-                .filter(product -> product.getSkinType().equals("Normal Skin") ||
-                                                   product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getName)
+                .filter(product -> product.getSkinType().equals("All Skin Types")).sorted(Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
 
         // Adding the products to the VBox
-        productDisplay.showProducts(normalSkinProducts, productDisplayVBox);
+        productDisplay.showProducts(allSkinTypesProducts, productDisplayVBox);
     }
 
 
@@ -355,7 +351,7 @@ public class CatalogController {
         List<SkincareProducts> cleanserProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Cleanser")).sorted(
-                        Comparator.comparing(SkincareProducts::getName)
+                        Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -371,7 +367,7 @@ public class CatalogController {
         List<SkincareProducts> tonerProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Toner")).sorted(
-                        Comparator.comparing(SkincareProducts::getName)
+                        Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -387,7 +383,7 @@ public class CatalogController {
         List<SkincareProducts> moisturizerProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Moisturizer")).sorted(
-                        Comparator.comparing(SkincareProducts::getName)
+                        Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -403,7 +399,7 @@ public class CatalogController {
         List<SkincareProducts> serumProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Serum")).sorted(
-                        Comparator.comparing(SkincareProducts::getName)
+                        Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();
@@ -419,7 +415,7 @@ public class CatalogController {
         List<SkincareProducts> sunscreenProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
                 .filter(product -> product.getProductType().equals("Sunscreen")).sorted(
-                        Comparator.comparing(SkincareProducts::getName)
+                        Comparator.comparing(SkincareProducts::getNameLowercase)
                 )
                 // Adding them to the list
                 .toList();

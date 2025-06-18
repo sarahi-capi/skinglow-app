@@ -183,7 +183,7 @@
 
 .mainComponentVBox {
     -fx-background-color: #A8D1E7;
-    -fx-background-radius: 50;
+    -fx-background-radius: 10;
     -fx-padding: 10;
 }
 

@@ -36,8 +36,16 @@ public abstract class SkincareProducts {
         return name;
     }
 
+    public String getNameLowercase() {
+        return name.toLowerCase();
+    }
+
     public String getBrand() {
         return brand;
+    }
+
+    public String getBrandLowercase() {
+        return brand.toLowerCase();
     }
 
     public String getSkinType() {

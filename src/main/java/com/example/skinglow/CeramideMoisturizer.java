@@ -9,7 +9,6 @@ public class CeramideMoisturizer extends Moisturizer implements IGiveTips {
     @Override
     public String giveTips(String skinType) {
         return switch (skinType) {
-            case "Normal Skin" -> "Use a ceramide moisturizer at night to maintain long-term skin resilience — you may not feel dry now, but prevention is key.";
             case "All Skin Types" -> "Opt for a lightweight, non-comedogenic ceramide formula. This gives hydration without overwhelming the skin — ideal year-round.";
             case "Oily Skin" -> "Don’t skip moisturizer! Use a gel-cream with ceramides to balance oil production and strengthen your barrier without greasiness.";
             case "Sensitive Skin" -> "Ceramides are excellent for reducing redness and irritation. Look for fragrance-free options and pair with soothing ingredients like Centella Asiatica.";
@@ -20,11 +19,11 @@ public class CeramideMoisturizer extends Moisturizer implements IGiveTips {
     @Override
     public String giveTips() {
         return """
-                - Ceramides are lipids that naturally occur in your skin and help reinforce the skin barrier.
-                - Use as the final step in your routine (before sunscreen in the AM).
-                - Best applied to slightly damp skin to lock in moisture.
-                - Great after treatments like retinol, exfoliants, or acids to calm and restore.
-                - Look for moisturizers with ceramides + cholesterol + fatty acids for optimal repair (the “golden ratio”).
+                • Ceramides are lipids that naturally occur in your skin and help reinforce the skin barrier.
+                • Use as the final step in your routine (before sunscreen in the AM).
+                • Best applied to slightly damp skin to lock in moisture.
+                • Great after treatments like retinol, exfoliants, or acids to calm and restore.
+                • Look for moisturizers with ceramides + cholesterol + fatty acids for optimal repair (the “golden ratio”).
                 """;
     }
 }

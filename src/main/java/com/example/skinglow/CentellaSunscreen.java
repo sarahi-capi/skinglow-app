@@ -9,7 +9,6 @@ public class CentellaSunscreen extends Sunscreen implements IGiveTips {
     @Override
     public String giveTips(String skinType) {
         return switch (skinType) {
-            case "Normal Skin" -> "You can use lightweight Centella sunscreens with either a creamy or gel texture. You’ll benefit from both UV protection and Centella’s natural barrier support — ideal for maintaining balanced skin.";
             case "All Skin Types" -> "Opt for a multi-functional sunscreen that also hydrates and soothes — Centella + niacinamide or Centella + hyaluronic acid combinations are excellent choices for universal care.";
             case "Oily Skin" -> "Choose a gel-type Centella sunscreen with a matte finish. It’ll calm inflammation without clogging pores or making your skin greasy during the day.";
             case "Sensitive Skin" -> "This is where Centella shines! Look for mineral or hybrid formulas with Centella as the hero — avoid alcohols and added fragrance for maximum gentleness and redness reduction.";
@@ -20,11 +19,11 @@ public class CentellaSunscreen extends Sunscreen implements IGiveTips {
     @Override
     public String giveTips() {
         return """
-                - Centella (also known as Cica) is known for its soothing, anti-inflammatory, and skin-repairing properties.
-                - Perfect for calming irritation while protecting your skin from UV damage.
-                - Great for anyone dealing with redness, acne-prone, or stressed skin.
-                - Ideal for daily use, especially in sunny or pollution-heavy environments.
-                - Often found in hybrid or chemical sunscreens with added skincare benefits.
+                • Centella (also known as Cica) is known for its soothing, anti-inflammatory, and skin-repairing properties.
+                • Perfect for calming irritation while protecting your skin from UV damage.
+                • Great for anyone dealing with redness, acne-prone, or stressed skin.
+                • Ideal for daily use, especially in sunny or pollution-heavy environments.
+                • Often found in hybrid or chemical sunscreens with added skincare benefits.
                 """;
     }
 }

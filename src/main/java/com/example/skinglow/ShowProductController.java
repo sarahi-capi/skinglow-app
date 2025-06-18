@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -32,9 +33,9 @@ public class ShowProductController {
     @FXML private Label skinTypeLabel;
     @FXML private Label presentationLabel;
     @FXML private Label productTypeLabel;
-    @FXML private Label productInfoLabel;
-    @FXML private Label howToUseLabel;
-    @FXML private Label benefitsLabel;
+    @FXML private Text productInfoText;
+    @FXML private Text howToUseText;
+    @FXML private Text benefitsText;
     @FXML private Label priceLabel;
 
     // To change the background color for the Main Component Display
@@ -85,15 +86,15 @@ public class ShowProductController {
 
         // Setting all the labels text
         nameLabel.setText(product.getName());
-        mainComponentLabel.setText(String.format("With " + product.getMainComponents()));
+        mainComponentLabel.setText("With " + product.getMainComponents());
         brandLabel.setText(product.getBrand());
         priceLabel.setText(String.format(" - €%.2f", product.getPrice()));
-        presentationLabel.setText(String.format("- Product presentation: " + product.getPresentation()));
-        productTypeLabel.setText(String.format("- This is a " + product.getProductType()) + " product.");
-        skinTypeLabel.setText(String.format("- This product is perfect for " + product.getSkinType() + "."));
-        productInfoLabel.setText(String.format("- " + product.getProductInfo()));
-        howToUseLabel.setText(String.format("- " + product.getHowToUse()));
-        benefitsLabel.setText(String.format("- " + product.getBenefits()));
+        presentationLabel.setText("• Product presentation: " + product.getPresentation());
+        productTypeLabel.setText("• This is a " + product.getProductType() + " product.");
+        skinTypeLabel.setText("• This product is perfect for " + product.getSkinType() + ".");
+        productInfoText.setText("• " + product.getProductInfo());
+        howToUseText.setText("• " + product.getHowToUse());
+        benefitsText.setText("• " + product.getBenefits());
 
         // Setting the product image and animate it on hover
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(product.getImagePath())));

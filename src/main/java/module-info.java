@@ -7,6 +7,8 @@ module com.example.skinglow {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires junit;
+    requires org.testng;
 
     opens com.example.skinglow to javafx.fxml;
     exports com.example.skinglow;
