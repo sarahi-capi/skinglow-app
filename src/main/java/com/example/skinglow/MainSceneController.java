@@ -40,7 +40,7 @@ public class MainSceneController {
 
     // Changing windows with a fading animation
     @FXML
-    private void catalogWindow(ActionEvent event) throws IOException {
+    public void catalogWindow(ActionEvent event) throws IOException {
         // Load the new scene root
         FXMLLoader loader = new FXMLLoader(getClass().getResource("catalog-scene.fxml"));
         Parent newRoot = loader.load();

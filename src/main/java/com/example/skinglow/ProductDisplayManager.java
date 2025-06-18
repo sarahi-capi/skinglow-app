@@ -63,7 +63,7 @@ public class ProductDisplayManager {
     }
 
     // Method that creates an HBox to display the products
-    private HBox createDisplayContainer() {
+    public HBox createDisplayContainer() {
 
         // Creating a HBox
         HBox display = new HBox(10);
@@ -79,7 +79,7 @@ public class ProductDisplayManager {
 
 
     // Method to load the image in an ImageView
-    private ImageView createProductImage(String imagePath) {
+    public ImageView createProductImage(String imagePath) {
         ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
         imageView.setFitWidth(115);
         imageView.setPreserveRatio(true);
@@ -89,7 +89,7 @@ public class ProductDisplayManager {
     }
 
     // Method that creates a VBox to contain the product name, brand and skin type
-    private VBox createTextBox(String name, String brand, String skinType) {
+    public VBox createTextBox(String name, String brand, String skinType) {
         VBox box = new VBox(5);
         box.setAlignment(Pos.CENTER);
 
@@ -104,7 +104,7 @@ public class ProductDisplayManager {
     }
 
     // Method to create a label
-    private Label createLabel(String text, String style) {
+    public Label createLabel(String text, String style) {
         Label label = new Label(text);
         label.setWrapText(true);
         label.setMaxWidth(160);

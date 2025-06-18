@@ -4,11 +4,20 @@ package com.example.skinglow;
 
 public class Steps {
 
-    String labelText;
-    String imagePath;
+    private String labelText;
+    private String imagePath;
 
     public Steps(String labelText, String imagePath) {
         this.labelText = labelText;
         this.imagePath = imagePath;
     }
+
+    public String getLabelText() {
+        return labelText;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
 }

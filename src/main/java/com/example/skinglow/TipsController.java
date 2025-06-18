@@ -7,8 +7,8 @@ import javafx.scene.layout.StackPane;
 
 public class TipsController {
     // To add the tips into the labels
-    @FXML private Label tips1;
-    @FXML private Label tips2;
+    @FXML private Label generalTipsTitle;
+    @FXML private Label specialTipsTitle;
     @FXML private Label generalTips;
     @FXML private Label specialTips;
 
@@ -27,15 +27,15 @@ public class TipsController {
     // Method to set the tips information
     public void showProductTips(SkincareProducts product) {
         if (product instanceof IGiveTips giveTips) {
-            generalTips.setText("General Tips about " + product.getMainComponents() + ": ");
-            tips1.setText(giveTips.giveTips());
-            specialTips.setText("Special Tips for " + product.getSkinType() + ": ");
-            tips2.setText(giveTips.giveTips(product.getSkinType()));
+            generalTipsTitle.setText("General Tips about " + product.getMainComponents() + ": ");
+            generalTips.setText(giveTips.giveTips());
+            specialTipsTitle.setText("Special Tips for " + product.getSkinType() + ": ");
+            specialTips.setText(giveTips.giveTips(product.getSkinType()));
         } else {
-            generalTips.setText("No tips available.");
-            tips1.setText("");
+            generalTipsTitle.setText("No tips available.");
+            generalTips.setText("");
+            specialTipsTitle.setText("");
             specialTips.setText("");
-            tips2.setText("");
         }
     }
 }

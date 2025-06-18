@@ -22,43 +22,73 @@ import java.util.List;
 import java.util.Objects;
 
 public class CatalogController {
+
+    // VARIABLES
     // Logo image
-    @FXML private ImageView imageLogo;
+    @FXML
+    private ImageView imageLogo;
 
     // Images for the filter menu
-    @FXML private ImageView allIcon;
-    @FXML private ImageView brandIcon;
-    @FXML private ImageView oilyIcon;
-    @FXML private ImageView sensitiveIcon;
-    @FXML private ImageView dryIcon;
-    @FXML private ImageView allSkinTypesIcon;
-    @FXML private ImageView cleanserIcon;
-    @FXML private ImageView tonerIcon;
-    @FXML private ImageView moisturizerIcon;
-    @FXML private ImageView serumIcon;
-    @FXML private ImageView sunscreenIcon;
+    @FXML
+    private ImageView allIcon;
+    @FXML
+    private ImageView brandIcon;
+    @FXML
+    private ImageView oilyIcon;
+    @FXML
+    private ImageView sensitiveIcon;
+    @FXML
+    private ImageView dryIcon;
+    @FXML
+    private ImageView allSkinTypesIcon;
+    @FXML
+    private ImageView cleanserIcon;
+    @FXML
+    private ImageView tonerIcon;
+    @FXML
+    private ImageView moisturizerIcon;
+    @FXML
+    private ImageView serumIcon;
+    @FXML
+    private ImageView sunscreenIcon;
 
     // VBox to add new display of products
-    @FXML private VBox productDisplayVBox;
+    @FXML
+    private VBox productDisplayVBox;
 
     // TextField used to take the query from the user
-    @FXML private TextField searchField;
+    @FXML
+    private TextField searchField;
 
     // To change the cursor
-    @FXML private StackPane catalogView;
-    @FXML private VBox all;
-    @FXML private VBox brand;
-    @FXML private VBox oilySkin;
-    @FXML private VBox sensitiveSkin;
-    @FXML private VBox drySkin;
-    @FXML private VBox allSkinTypes;
-    @FXML private VBox cleanser;
-    @FXML private VBox toner;
-    @FXML private VBox moisturizer;
-    @FXML private VBox serum;
-    @FXML private VBox sunscreen;
-    @FXML private Button searchButton;
-    @FXML private Button tutorialButton;
+    @FXML
+    private StackPane catalogView;
+    @FXML
+    private VBox all;
+    @FXML
+    private VBox brand;
+    @FXML
+    private VBox oilySkin;
+    @FXML
+    private VBox sensitiveSkin;
+    @FXML
+    private VBox drySkin;
+    @FXML
+    private VBox allSkinTypes;
+    @FXML
+    private VBox cleanser;
+    @FXML
+    private VBox toner;
+    @FXML
+    private VBox moisturizer;
+    @FXML
+    private VBox serum;
+    @FXML
+    private VBox sunscreen;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button tutorialButton;
 
     // To manage the images
     ImageManager imageManager = new ImageManager();
@@ -72,6 +102,8 @@ public class CatalogController {
     // List with all the products
     private List<SkincareProducts> skincareProductsList;
 
+
+    // METHODS
     public void initialize() {
 
         // Saving VBoxes in a list to change their cursor
@@ -164,7 +196,7 @@ public class CatalogController {
 
     // Method to display a window with explanation of the Skincare routine
     @FXML
-    private void tutorialWindow(ActionEvent event) throws IOException {
+    public void tutorialWindow(ActionEvent event) throws IOException {
         // Loading the tutorial window
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("tutorial-scene.fxml"));
         Parent root = fxmlLoader.load();
@@ -223,10 +255,9 @@ public class CatalogController {
         transition.fadeOutInTransition(currentScene, newRoot, stage);
     }
 
-
     // Method to filter a search based on a query
     @FXML
-    private void onSearch(ActionEvent event) {
+    public void onSearch(ActionEvent event) {
         String query = searchField.getText().toLowerCase();
 
         // Clear current display
@@ -265,7 +296,7 @@ public class CatalogController {
 
     // Method to show all the products
     @FXML
-    private void filterAll(MouseEvent event) {
+    public void filterAll(MouseEvent event) {
         // Sorting by name
         skincareProductsList.sort(Comparator.comparing(SkincareProducts::getNameLowercase));
 
@@ -275,7 +306,7 @@ public class CatalogController {
 
     // Method to filter by Brand
     @FXML
-    private void filterBrand(MouseEvent event) {
+    public void filterBrand(MouseEvent event) {
         // Sorting by Brand
         skincareProductsList.sort(Comparator.comparing(SkincareProducts::getBrandLowercase));
 
@@ -285,7 +316,7 @@ public class CatalogController {
 
     // Method to filter by Oily Skin
     @FXML
-    private void filterOilySkin(MouseEvent event) {
+    public void filterOilySkin(MouseEvent event) {
         // Creating a List with products that are suitable for oily skin
         List<SkincareProducts> oilySkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -300,7 +331,7 @@ public class CatalogController {
 
     // Method to filter by Sensitive Skin
     @FXML
-    private void filterSensitiveSkin(MouseEvent event) {
+    public void filterSensitiveSkin(MouseEvent event) {
         // Creating a List with products that are suitable for sensitive skin
         List<SkincareProducts> sensitiveSkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -315,7 +346,7 @@ public class CatalogController {
 
     // Method to filter by Sensitive Skin
     @FXML
-    private void filterDrySkin(MouseEvent event) {
+    public void filterDrySkin(MouseEvent event) {
         // Creating a List with products that are suitable for dry skin
         List<SkincareProducts> drySkinProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -330,7 +361,7 @@ public class CatalogController {
 
     // Method to filter by All Skin Types
     @FXML
-    private void filterAllSkinTypes(MouseEvent event) {
+    public void filterAllSkinTypes(MouseEvent event) {
         // Creating a List with products that are suitable for normal skin
         List<SkincareProducts> allSkinTypesProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -343,10 +374,9 @@ public class CatalogController {
         productDisplay.showProducts(allSkinTypesProducts, productDisplayVBox);
     }
 
-
     // Method to filter by Cleansers
     @FXML
-    private void filterCleanser(MouseEvent event) {
+    public void filterCleanser(MouseEvent event) {
         // Creating a List with products that are cleansers
         List<SkincareProducts> cleanserProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -362,7 +392,7 @@ public class CatalogController {
 
     // Method to filter by Toner
     @FXML
-    private void filterToner(MouseEvent event) {
+    public void filterToner(MouseEvent event) {
         // Creating a List with products that are toners
         List<SkincareProducts> tonerProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -378,7 +408,7 @@ public class CatalogController {
 
     // Method to filter by Moisturizer
     @FXML
-    private void filterMoisturizer(MouseEvent event) {
+    public void filterMoisturizer(MouseEvent event) {
         // Creating a List with products that are moisturizers
         List<SkincareProducts> moisturizerProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -394,7 +424,7 @@ public class CatalogController {
 
     // Method to filter by Serum
     @FXML
-    private void filterSerum(MouseEvent event) {
+    public void filterSerum(MouseEvent event) {
         // Creating a List with products that are serums
         List<SkincareProducts> serumProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them
@@ -410,7 +440,7 @@ public class CatalogController {
 
     // Method to filter by Sunscreen
     @FXML
-    private void filterSunscreen(MouseEvent event) {
+    public void filterSunscreen(MouseEvent event) {
         // Creating a List with products that are sunscreens
         List<SkincareProducts> sunscreenProducts = skincareProductsList.stream()
                 // Filtering the products based on the SkinType and sorting them

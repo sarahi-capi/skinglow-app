@@ -94,7 +94,7 @@ public class TutorialController {
 
     // Method to update the information displayed based on the step of the Skincare
     @FXML
-    private void nextStep(MouseEvent event) {
+    public void nextStep(MouseEvent event) {
 
         if (counter < skincareProductsList.size() - 1) {
 
@@ -102,8 +102,8 @@ public class TutorialController {
             Steps step = steps.get(counter);
 
             // Setting the label and image
-            stepLabel.setText(step.labelText);
-            imageManager.addingImage(stepsImage, step.imagePath);
+            stepLabel.setText(step.getLabelText());
+            imageManager.addingImage(stepsImage, step.getImagePath());
 
             // Getting the current step information from the Skincare List
             SkincareProducts currentStep = skincareProductsList.get(counter + 1);
