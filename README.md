@@ -1,13 +1,13 @@
-# SkinGlow: Skincare Routine Manager 🧴🫧
+# SkinGlow: Skincare Routine Guide 🧴🫧
 
-A Java application built to model personalized skincare routines, heavily utilizing advanced Object-Oriented Programming (OOP) paradigms and JavaFX for the user interface.
+A Java application built to help user model personalized skincare routines, heavily utilizing advanced Object-Oriented Programming (OOP) paradigms and JavaFX for the user interface.
 
 <p align="center">
   <video src="https://github.com/user-attachments/assets/1380b7da-dfec-4e62-9f7a-ab2da53c867f" width="100%" controls></video>
 </p>
 
 ## The Concept ✨
-**SkinGlow** is a catalog and routine-building application that helps users understand when and how to apply different skincare products (Cleansers, Serums, Moisturizers, etc.) based on their specific skin type. The core focus of this project was to implement a robust, scalable backend architecture utilizing strict OOP principles.
+**SkinGlow** is a catalog and routine-helper application that aids users understand when and how to apply different skincare products (Cleansers, Serums, Moisturizers, etc.) based on their specific skin type and/or prefered ingredients. The core focus of this project was to implement a robust, scalable backend architecture utilizing strict OOP principles.
 
 ## Software Architecture & OOP Concepts 🛠️
 This project demonstrates a deep understanding of Java backend structuring:
