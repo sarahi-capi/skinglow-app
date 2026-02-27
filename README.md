@@ -1,4 +1,4 @@
-# SkinGlow: Skincare Routine Guide 🧴🫧
+# SkinGlow: A Skincare Routine App 🧴🫧
 
 A Java application built to help user model personalized skincare routines, heavily utilizing advanced Object-Oriented Programming (OOP) paradigms and JavaFX for the user interface.
 
