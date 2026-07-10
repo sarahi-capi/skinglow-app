@@ -24,7 +24,7 @@ This project was built as a standard JavaFX module. To run it locally:
 1. Clone the repository to your machine.
 2. Open the project folder in your preferred Java IDE (IntelliJ IDEA, Eclipse, or VS Code).
 3. Ensure the JavaFX SDK is configured in your project structure.
-4. Run the `BlackJackApp.java` main class!
+4. Run the `SkinGlowApplication.java` main class.
 
 --- 
 
